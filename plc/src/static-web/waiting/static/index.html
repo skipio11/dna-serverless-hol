@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Waiting Room!!!</title>
+    <link rel="stylesheet" type="text/css" href="./index-style.css">
+<style>
+.background-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.3;
+  width: 1025px;
+  height: 794px;
+}
+</style>
+</head>
+<body>
+    <div class='body'>
+        <span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+        <div class='base'>
+          <span></span>
+          <div class='face'></div>
+        </div>
+      </div>
+      <div class='longfazers'>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <h1>접속 대기중입니다.</h1>
+      <h2>현재 접속 사용자가 많아 대기 중이며, 잠시만 기다리시면 서비스로 자동접속됩니다.</h2>
+    <div id="content">
+
+    </div>
+    <script>
+        function redirectToServiceUrl(){
+            var serviceUrl = getUrlParameter("serviceUrl");
+            console.log('Go back to serviceUrl : ' + serviceUrl);
+            window.location.href=serviceUrl;
+        }
+
+        function heatbeatCallback() {
+          if (xhr.status !== 200) {
+              console.log('Request failed.  Returned status of ' + xhr.status);
+              return;
+          }
+
+          var response = JSON.parse(xhr.responseText);
+          if(response.tokenStatus == "InUse"){
+              redirectToServiceUrl();
+              return;
+          }
+          else{
+              console.log("Continue waiting..");
+          }
+        }
+    </script>
+    <script src="./index.js"></script>
+</body>
+</html>
