@@ -38,7 +38,7 @@ async function updateTokenStatus(tokenId, tokenStatus){
 async function getOldestWaitingTokens(limitCount){
     const params = {
         TableName: tokensTableName,
-        IndexName: "tokens-gsi01", // TODO
+        IndexName: "tokens-gsi01",
         KeyConditionExpression: "tokenStatus = :tokenStatus",
         ExpressionAttributeValues: {
             ":tokenStatus": "Waiting"
@@ -79,8 +79,9 @@ exports.handler = async (event) => {
 
     const statusData = await selectStatus('default');
 
-    if(statusData.Item.inUseCount < statusData.Item.maxInUseCount){
-        limitCount = statusData.Item.maxInUseCount - statusData.Item.inUseCount;
+    let leftCount = statusData.Item.maxInUseCount - statusData.Item.inUseCount;
+    if(limitCount < leftCount){
+        limitCount = leftCount;
     }
     
     console.log(`${limitCount} / ${statusData.Item.maxInUseCount} / ${statusData.Item.inUseCount}`);

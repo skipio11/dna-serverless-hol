@@ -77,7 +77,7 @@ exports.handler = async (event) => {
     const statusData = await updateThrottleStatus("default", inUseCount, waitingCount);
     
     console.log(JSON.stringify(statusData));
-    if(statusData.Attributes.maxInUseCount * 0.5 > statusData.Attributes.inUseCount){
+    if(statusData.Attributes.maxInUseCount * 0.2 > statusData.Attributes.inUseCount){
         updateWaitEnabledStatus("default", false);
     }
     else{

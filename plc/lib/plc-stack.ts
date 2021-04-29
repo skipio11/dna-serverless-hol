@@ -290,7 +290,7 @@ export class PlcStack extends cdk.Stack {
       handler: "status-initializer.handler",
       environment: {
         STATUS_TABLE_NAME: statusTable.tableName,
-        MAX_IN_USE_COUNT: '100',
+        MAX_IN_USE_COUNT: '300',
       },
       tracing: lambda.Tracing.ACTIVE,
       role: lambdaRole,
